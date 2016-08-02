@@ -37,7 +37,7 @@ public class DeathBan extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        if (!event.getEntity().hasPermission("deathban.noban")) {
+        if (!event.getEntity().hasPermission("deathban.unban")) {
             Date date = new Date();
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -53,11 +53,11 @@ public class DeathBan extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (!event.getPlayer().hasPermission("deathban.noban")
+        if (!event.getPlayer().hasPermission("deathban.unban")
                 && list.containsKey(event.getPlayer().getName())) {
             try {
                 Date now = new Date();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat format = new SimpleDateFormat("");
                 Date end = format.parse((String) list.get(event.getPlayer().getName()));
                 long between = (end.getTime() - now.getTime()) / 1000;
                 long day = between / (24 * 3600);
@@ -82,10 +82,14 @@ public class DeathBan extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("noban")) {
-            if (args.length == 1) {
-                list.remove(args[0]);
+        if (command.getName().equalsIgnoreCase("deathban")
+                && sender.hasPermission("deathban.command")) {
+            if (args.length == 2 && args[0].equalsIgnoreCase("unban")) {
+                list.remove(args[1]);
                 sender.sendMessage(ChatColor.AQUA + "解ban成功");
+            }
+            if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+                this.reloadConfig();
             }
         }
         return false;

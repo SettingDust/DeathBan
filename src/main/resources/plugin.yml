@@ -1,9 +1,11 @@
 name: DeathBan
 main: com.settingdust.deathban.DeathBan
-version: 1.0
+version: 1.0.1
 author: SettingDust
 commands:
-  noban:
+  deathban:
 permissions:
-  deathban.noban:
+  deathban.unban:
+    default: op
+  deathban.commands:
     default: op

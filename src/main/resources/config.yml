@@ -1,3 +1,4 @@
 time: 43200
 death-message: "&4您已死亡，请在{time}后进入游戏"
 kick-message: "&4您已死亡，请在{time}后进入游戏"
+time-format: yyyy-MM-dd HH:mm:ss
